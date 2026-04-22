@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Feed from './pages/Feed';
 import Profile from './pages/Profile';
 import ForgotPassword from './pages/ForgotPassword';
+import Chat from './pages/Chat';
 
 const ProtectedRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -24,6 +25,7 @@ function AppRoutes() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
             <Route path="/profile/:userId" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
         </Routes>
     );
 }

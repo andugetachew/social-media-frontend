@@ -16,6 +16,32 @@ export default function Profile() {
     const [editContent, setEditContent] = useState('');
     const { user } = useAuth();
     const navigate = useNavigate();
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editBio, setEditBio] = useState('');
+    const [editUsername, setEditUsername] = useState('');
+
+    const updateProfile = async () => {
+        const formData = new FormData();
+        if (editBio) formData.append('bio', editBio);
+        if (editUsername) formData.append('username', editUsername);
+        if (profilePicture) formData.append('profile_picture', profilePicture);
+
+        await api.put('/auth/profile/', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+
+        setIsEditing(false);
+        window.location.reload();
+    };
+
+    const deleteAccount = async () => {
+        if (window.confirm('Are you sure? This cannot be undone.')) {
+            await api.delete('/auth/delete-account/');
+            localStorage.clear();
+            window.location.href = '/login';
+        }
+    };
 
     useEffect(() => {
         if (userId) {
