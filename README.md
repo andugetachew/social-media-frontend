@@ -1,16 +1,71 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ✅ Frontend README – `social-media-frontend/README.md`
 
-Currently, two official plugins are available:
+```markdown
+# Social Media Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+A modern, responsive React frontend for the Social Media API – featuring real-time feed, WebSocket chat, file/image upload, and Tailwind CSS.
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Authentication** – Register, login, JWT token refresh
+- **Feed** – Create, edit, delete posts, infinite scroll
+- **Social Actions** – Like, comment, follow/unfollow
+- **User Profiles** – View profiles, follower/following counts
+- **Real-time Chat** – WebSocket chat with typing indicator
+- **File Upload** – Send images (preview) and documents (PDF, Word, PPT)
+- **Settings** – Update profile, change password, upload profile picture
+- **Search** – Search users by username
+- **Responsive** – Mobile-friendly Tailwind CSS
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 18 + Vite
+- Tailwind CSS
+- Axios
+- React Router v6
+- WebSocket API
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/andugetachew/social-media-frontend.git
+cd social-media-frontend
+npm install
+npm run dev
+🔗 Environment Variables
+Create .env:
+
+text
+VITE_API_URL=http://127.0.0.1:8000/api
+📁 Project Structure
+text
+src/
+├── pages/
+│   ├── Login.jsx
+│   ├── Register.jsx
+│   ├── Feed.jsx
+│   ├── Profile.jsx
+│   ├── Chat.jsx
+│   └── Settings.jsx
+├── components/
+│   └── SearchBar.jsx
+├── context/
+│   └── AuthContext.jsx
+├── services/
+│   └── api.js
+├── App.jsx
+└── main.jsx
+📄 License
+MIT
+
+👨‍💻 Author
+Andu Getachew
+
+GitHub: @andugetachew
+
+text
+
+---
+
+**Add these READMEs to your repositories and push.** 🚀
