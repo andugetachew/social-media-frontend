@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = 'http://127.0.0.1:8001/api';
 
 const api = axios.create({
     baseURL: API_URL,
@@ -27,9 +27,7 @@ api.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 const refresh = localStorage.getItem('refresh_token');
-                const response = await axios.post(`${API_URL}/auth/refresh/`, {
-                    refresh,
-                });
+                const response = await axios.post(`${API_URL}/auth/refresh/`, { refresh });
                 localStorage.setItem('access_token', response.data.access);
                 originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
                 return api(originalRequest);

@@ -43,12 +43,13 @@ export const AuthProvider = ({ children }) => {
         return response.data;
     };
 
-    const register = async (email, username, password, password2) => {
+    const register = async (email, username, password, password2, full_name) => {
         const response = await api.post('/auth/register/', {
             email,
             username,
+            full_name,
             password,
-            password2,
+            password2
         });
         localStorage.setItem('access_token', response.data.access);
         localStorage.setItem('refresh_token', response.data.refresh);

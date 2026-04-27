@@ -108,7 +108,7 @@ export default function Chat() {
         if (!selectedUser || !user) return;
 
         const roomId = getDeterministicRoomId(user.id, selectedUser.id);
-        const wsUrl = `ws://127.0.0.1:8000/ws/chat/${roomId}/`;
+        const wsUrl = `ws://127.0.0.1:8001/ws/chat/${roomId}/`;
         console.log('Connecting WebSocket:', wsUrl);
 
         ws.current = new WebSocket(wsUrl);

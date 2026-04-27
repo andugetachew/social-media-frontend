@@ -26,8 +26,8 @@ export default function Login() {
                 {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <input
-                        type="email"
-                        placeholder="Email"
+                        type="text"
+                        placeholder="Email or Username"
                         className="w-full p-2 border rounded mb-3"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -41,14 +41,11 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-
-                    {/* FORGOT PASSWORD LINK - ADD THIS HERE */}
                     <div className="text-right mb-3">
                         <Link to="/forgot-password" className="text-blue-500 text-sm hover:underline">
                             Forgot Password?
                         </Link>
                     </div>
-
                     <button
                         type="submit"
                         className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"

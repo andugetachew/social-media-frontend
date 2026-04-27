@@ -167,11 +167,15 @@ export default function Feed() {
     return (
         <div className="min-h-screen bg-gray-100">
             <div className="max-w-2xl mx-auto p-4">
+                {/* Header */}
                 <div className="bg-white p-4 rounded-lg shadow mb-4">
                     <div className="flex justify-between items-center flex-wrap gap-4">
                         <h1 className="text-xl font-bold">Social Feed</h1>
                         <SearchBar />
                         <div className="flex items-center gap-4">
+                            <Link to="/settings" className="text-gray-500 hover:text-gray-700" title="Settings">
+                                ⚙️
+                            </Link>
                             <Link to="/chat" className="text-green-500 hover:text-green-700">
                                 💬 Chat
                             </Link>
@@ -185,6 +189,7 @@ export default function Feed() {
                     </div>
                 </div>
 
+                {/* Create Post Form */}
                 <form onSubmit={createPost} className="bg-white p-4 rounded-lg shadow mb-4">
                     <textarea
                         className="w-full p-2 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -202,10 +207,12 @@ export default function Feed() {
                     </div>
                 </form>
 
+                {/* Stats */}
                 <div className="text-sm text-gray-500 mb-2">
                     {totalPosts} total posts
                 </div>
 
+                {/* Posts */}
                 {posts.length === 0 ? (
                     <div className="bg-white p-8 rounded-lg shadow text-center text-gray-500">
                         No posts in your feed. Follow someone or create a post!
