@@ -6,16 +6,22 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+        setLoading(true);
         try {
             await login(email, password);
             navigate('/');
         } catch (err) {
+            console.error('Login error:', err);
             setError('Invalid credentials');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -28,7 +34,7 @@ export default function Login() {
                     <input
                         type="text"
                         placeholder="Email or Username"
-                        className="w-full p-2 border rounded mb-3"
+                        className="w-full p-2 border rounded-lg mb-3"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -36,21 +42,17 @@ export default function Login() {
                     <input
                         type="password"
                         placeholder="Password"
-                        className="w-full p-2 border rounded mb-3"
+                        className="w-full p-2 border rounded-lg mb-3"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <div className="text-right mb-3">
-                        <Link to="/forgot-password" className="text-blue-500 text-sm hover:underline">
-                            Forgot Password?
-                        </Link>
-                    </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+                        disabled={loading}
+                        className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
                     >
-                        Login
+                        {loading ? 'Logging in...' : 'Login'}
                     </button>
                 </form>
                 <p className="text-center mt-4">
