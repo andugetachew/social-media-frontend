@@ -103,22 +103,33 @@ export default function Chat() {
         }
     }, [user]);
 
-    // ------------------- 3. WebSocket for real‑time messages -------------------
+       // ------------------- 3. WebSocket for real-time messages -------------------
     useEffect(() => {
         if (!selectedUser || !user) return;
 
         const roomId = getDeterministicRoomId(user.id, selectedUser.id);
-        const wsUrl = `ws://127.0.0.1:8000/ws/chat/${roomId}/`;
-        console.log('Connecting WebSocket:', wsUrl);
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            console.error('No access_token in localStorage. Keys:', Object.keys(localStorage));
+            return;
+        }
 
-        ws.current = new WebSocket(wsUrl);
+        const wsUrl = `ws://127.0.0.1:8002/ws/chat/${roomId}/?token=${token}&peer=${selectedUser.id}`;
+        console.log('Connecting WebSocket:', wsUrl.replace(token, token.slice(0, 12) + '...'));
 
-        ws.current.onopen = () => console.log('WebSocket connected');
-        ws.current.onclose = () => console.log('WebSocket disconnected');
-        ws.current.onerror = (err) => console.error('WebSocket error:', err);
+        const socket = new WebSocket(wsUrl);
+        ws.current = socket;
 
-        ws.current.onmessage = (event) => {
+        socket.onopen = () => console.log('WebSocket connected');
+        socket.onclose = (e) => console.log('WebSocket disconnected', e.code);
+        socket.onerror = (err) => console.error('WebSocket error:', err);
+
+        socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
+            if (data.error) {
+                console.error('Chat error from server:', data.error);
+                return;
+            }
             console.log('Message received:', data);
             setMessages(prev => [...prev, {
                 id: data.id,
@@ -128,9 +139,7 @@ export default function Chat() {
             }]);
         };
 
-        return () => {
-            if (ws.current) ws.current.close();
-        };
+        return () => socket.close();
     }, [selectedUser, user]);
 
     // ------------------- 4. Load previous messages & poll for new ones (fallback) -------------------
